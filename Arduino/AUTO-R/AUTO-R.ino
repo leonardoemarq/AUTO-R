@@ -20,8 +20,8 @@ const int R2 = 13;  // Rojo Fase 2
 unsigned long ciclo = 120000;
 
 // Repartos (en porcentaje)
-int fase1 = 60;
-int fase2 = 40;
+int fase1;
+int fase2;
 
 // Tiempos de senales (en milisegundos)
 unsigned long tV1;  // tiempo de verde fase 1
@@ -75,10 +75,12 @@ void setup() {
   unsigned long t; // elemento time_t, recibe el tiempo en formato UNIX TimeStamp
   bool banderaSerial = false; // sera true una vez recibida la trama en pto serial y formato sea correcto.
   do {
-    if (Serial.available()) {
+    if (Serial.available() > 0) {
       trama = Serial.readString();
       if (trama.length() == 23 && trama.charAt(0) == 'H' && trama.charAt(11) == 'T')
           banderaSerial = true;
+//          lcd.setCursor(0,0);
+//          lcd.print(trama.length());
     }
   } while (!banderaSerial);
 
